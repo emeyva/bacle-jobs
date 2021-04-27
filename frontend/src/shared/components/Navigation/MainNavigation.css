@@ -27,7 +27,8 @@
 }
 
 .main-navigation__header-nav {
-  display: none;
+  display: flex;
+  width: 100%;
 }
 
 .main-navigation__drawer-nav {
