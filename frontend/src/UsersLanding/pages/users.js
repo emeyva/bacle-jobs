@@ -1,15 +1,25 @@
 import React from "react";
 
-import "./users.css";
+import Button from "../../shared/FormElements/Button";
+import Numbers from "../components/Numbers";
+import "./Users.css";
 
 const Users = () => {
   return (
-    <div className="container">
-      <h1>Fazer dinheiro para as tuas paixões, é na Bacle</h1>
-      <button className="landing-button_findjob">
-        Encontra trabalhos perto de ti
-      </button>
-    </div>
+    <React.Fragment>
+      <div className="container">
+        <div className="row">
+          <div className="column">
+            <h1>
+              <b>Fazer dinheiro para as tuas paixões, é na Bacle</b>
+            </h1>
+            <Button>Encontra trabalhos para ti</Button>
+          </div>
+          <div className="column"></div>
+        </div>
+      </div>
+      <Numbers />
+    </React.Fragment>
   );
 };
 
