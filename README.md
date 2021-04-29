@@ -48,7 +48,15 @@ Frontend
 ```
 Backend
 ```
-├── ...
+├── "axios": "^0.21.1",
+├── "bcryptjs": "^2.4.3",
+├── "body-parser": "^1.19.0",
+├── "express": "^4.17.1",
+├── "express-validator": "^6.10.1",
+├── "jsonwebtoken": "^8.5.1",
+├── "node-modules": "^1.0.1",
+├── "pg": "^8.6.0",
+├── "react-scripts": "^3.4.4"
 ```
 
 ## Deployment
@@ -68,8 +76,8 @@ The project is now live on (http://localhost:3000)
 
 ## Hosting
 
-* [API](https://bacle-jobs.herokuapp.com/api)
-* [Website](https://bacle-jobs-prod.firebaseapp.com)
+* [API](https://bacle-jobs.herokuapp.com/api) - The API is deployed on (http://postgresql-deploy.herokuapp.com/api)
+* [Website]() - - The web-app is not deployed yet
 
 ## Contributing
 
