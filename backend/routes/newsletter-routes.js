@@ -16,6 +16,7 @@ router.post(
   "/apply",
   [
     check("email").isEmail(),
+    check("city").not().isEmpty()
   ],
   newsletterControllers.applyNewsletter
 );

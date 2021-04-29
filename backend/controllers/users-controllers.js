@@ -33,6 +33,10 @@ const signup = async (req, res, next) => {
   } = req.body;
 
   let existingUser;
+  let user_id;
+  let user_level_id;
+  let user_status_id;
+  const timestamp = new Date().toISOString();
   
   try {
     existingUser = await pool.query('SELECT email FROM usersaccount WHERE email LIKE $1',[email]);
@@ -43,9 +47,6 @@ const signup = async (req, res, next) => {
     );
     return next(error);
   }
-
-  console.log("Existing user " + existingUser.rows[0]);
-  console.log("Email  " + email);
 
   if (existingUser.rows[0]) {
     const error = new HttpError(
@@ -66,40 +67,62 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  let createdUser;
+  ;(async () => {
+    // note: we don't try/catch this because if connecting throws an exception
+    // we don't need to dispose of the client (it will be undefined)
+    const client = await pool.connect()
+    try {
+      await client.query('BEGIN')
+      const insertUserQuery = 'INSERT INTO usersaccount (name, email, password) VALUES($1, $2, $3) RETURNING user_id'
+      const userObject = await client.query(insertUserQuery, [name, email, hashedPassword])
+      user_id = userObject.rows[0].user_id;
+      console.log("userObject: "+userObject.rows[0].user_id)
+      const insertUserLevelQuery = 'INSERT INTO users_level (user_id, level, created_date) VALUES($1, $2, $3) RETURNING id'
+      const insertUserStatusQuery = 'INSERT INTO users_status (user_id, status, created_date) VALUES($1, $2, $3) RETURNING id'
+      const userLevelObject =  await client.query(insertUserLevelQuery, [user_id, 1, timestamp])
+      const userStatusObject = await client.query(insertUserStatusQuery, [user_id, 1, timestamp])
+      user_level_id = userLevelObject.rows[0].id;
+      user_status_id = userStatusObject.rows[0].id;
 
-  try {
-    createdUser = await pool.query('INSERT INTO usersaccount (name, email, password) VALUES($1, $2, $3) RETURNING user_id',
-    [name, email, hashedPassword]);
-  } catch (err) {
-    console.log(err);
-    const error = new HttpError("Signing up failed, please try again.", 500);
-    return next(error);
-  }
+      let token;
+      try {
+        token = jwt.sign(
+          { userId: user_id, email: email, type: "user" },
+          process.env.JWT_KEY,
+          { expiresIn: "1h" }
+        );
+      } catch (err) {
+        const error = new HttpError(
+          "Logging in failed, please try again later.",
+          500
+        );
+        return next(error);
+      }
 
-  let token;
-  try {
-    token = jwt.sign(
-      { userId: createdUser.rows[0].user_id, email: email, type: "user" },
-      process.env.JWT_KEY,
-      { expiresIn: "1h" }
-    );
-  } catch (err) {
-    const error = new HttpError(
-      "Logging in failed, please try again later.",
-      500
-    );
-    return next(error);
-  }
+      res.json({
+        userId: user_id,
+        email: email,
+        token: token,
+        type: "user",
+        userLevelId: user_level_id,
+        userStatusId: user_status_id,
+      });
+
+      await client.query('COMMIT')
+    } catch (e) {
+      await client.query('ROLLBACK')
+      const error = new HttpError("Could not create user, please try again", 500);
+      console.log(password);
+      return next(error);
+      
+    } finally {
+      client.release()
+    }
+  })().catch(e => console.log(e))
 
   
 
-  res.json({
-    userId: createdUser.rows[0].user_id,
-    email: email,
-    token: token,
-    type: "user",
-  });
+  
 
 };
 

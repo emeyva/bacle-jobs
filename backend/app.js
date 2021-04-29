@@ -6,6 +6,9 @@ const usersRoutes = require('./routes/users-routes');
 const companiesRoutes = require('./routes/companies-routes');
 const interactionsRoutes = require('./routes/interactions-routes');
 const newsletterRoutes = require('./routes/newsletter-routes');
+const usersLevelsRoutes = require('./routes/usersLevel-routes');
+const usersStatusRoutes = require('./routes/usersStatus-routes');
+
 
 const HttpError = require('./models/http-error');
 
@@ -28,7 +31,8 @@ app.use('/api/users', usersRoutes);
 app.use('/api/companies', companiesRoutes);
 app.use('/api/interactions', interactionsRoutes);
 app.use('/api/newsletter', newsletterRoutes);
-
+app.use('/api/usersLevel', usersLevelsRoutes);
+app.use('/api/usersStatus', usersStatusRoutes);
 
 app.use((req,res,next) => {
     throw new HttpError('Could not find this route', 404);

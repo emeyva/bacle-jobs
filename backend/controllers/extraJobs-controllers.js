@@ -13,6 +13,7 @@ const getExtraJobs = async (req,res,next) => {
         try {
             allExtraJobs = await pool.query('SELECT * FROM extra_jobs');
         } catch (err) {
+            console.log(err);
             const error = new HttpError(
                 'Something went wrong, could not find extra jobs. ', 500
             );

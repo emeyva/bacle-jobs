@@ -14,7 +14,7 @@ const getNewsletterEmails = async (req, res, next) => {
         500
       );
     }
-    res.status(200).json(results.rows)
+    res.status(200).json({newsletter: results.rows})
   })
 };
 
@@ -27,7 +27,8 @@ const applyNewsletter = async (req, res, next) => {
   }
   //const {phone,birthDate,aboutMe,experience,status,nJobs,nApplications,pendingJobs} = "null";
   const {
-    email
+    email,
+    city
   } = req.body;
 
   const timestamp = new Date().toISOString();
@@ -54,8 +55,8 @@ const applyNewsletter = async (req, res, next) => {
   let createdUser;
 
   try {
-    createdUser = await pool.query('INSERT INTO newsletter (email, timestamp) VALUES($1, $2) RETURNING id',
-    [email, timestamp]);
+    createdUser = await pool.query('INSERT INTO newsletter (email, city, timestamp) VALUES($1, $2, $3) RETURNING id',
+    [email, city, timestamp]);
   } catch (err) {
     console.log(err);
     const error = new HttpError("Error enrolling your email on our newsletter", 500);

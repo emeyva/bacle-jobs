@@ -11,11 +11,32 @@ CREATE TABLE public.categories
     PRIMARY KEY (id)
 );
 
+CREATE TABLE public.users_level
+(
+    id Serial NOT NULL,
+    user_id integer NOT NULL,
+    level integer NOT NULL,
+    changed_date timestamp with time zone,
+    created_date timestamp with time zone,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.users_status
+(
+    id Serial NOT NULL,
+    user_id integer NOT NULL,
+    status integer NOT NULL,
+    changed_date timestamp with time zone,
+    created_date timestamp with time zone,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE public.newsletter
 (
     id integer NOT NULL DEFAULT nextval('newsletter_id_seq'::regclass),
     email character varying(50) COLLATE pg_catalog."default",
     "timestamp" timestamp with time zone,
+    city character varying(50),
     CONSTRAINT newsletter_pkey PRIMARY KEY (id),
     CONSTRAINT newsletter_email_key UNIQUE (email)
 )
@@ -56,7 +77,7 @@ CREATE TABLE public.extra_jobs
     company_name character varying(50) NOT NULL,
     salary double precision NOT NULL,
     category character varying(255) NOT NULL,
-    address integer NOT NULL,
+    address character varying(255) NOT NULL,
     coordinate_long double precision NOT NULL,
     coordinate_let double precision NOT NULL,
     date date NOT NULL,
@@ -119,6 +140,16 @@ ALTER TABLE public.shifts
 
 
 ALTER TABLE public.usersexperience
+    ADD FOREIGN KEY (user_id)
+    REFERENCES public.usersaccount (user_id)
+    NOT VALID;
+
+ALTER TABLE public.users_level
+    ADD FOREIGN KEY (user_id)
+    REFERENCES public.usersaccount (user_id)
+    NOT VALID;
+
+ALTER TABLE public.users_status
     ADD FOREIGN KEY (user_id)
     REFERENCES public.usersaccount (user_id)
     NOT VALID;

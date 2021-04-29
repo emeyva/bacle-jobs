@@ -56,8 +56,7 @@ Backend
 ├── "jsonwebtoken": "^8.5.1",
 ├── "node-modules": "^1.0.1",
 ├── "pg": "^8.6.0",
-├── "react-scripts": "^3.4.4",
-├── "uuid": "^8.3.2"
+├── "react-scripts": "^3.4.4"
 ```
 
 ## Deployment
@@ -77,8 +76,8 @@ The project is now live on (http://localhost:3000)
 
 ## Hosting
 
-* [API](https://bacle-jobs.herokuapp.com/api)
-* [Website](https://bacle-jobs-prod.firebaseapp.com)
+* [API](https://bacle-jobs.herokuapp.com/api) - The API is deployed on (http://postgresql-deploy.herokuapp.com/api)
+* [Website]() - - The web-app is not deployed yet
 
 ## Contributing
 
