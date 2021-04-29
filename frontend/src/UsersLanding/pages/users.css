@@ -1,18 +1,10 @@
-.container {
+.container-header {
+  padding-top: 45vh;
+  padding-left: 15rem;
+  padding-right: 15rem;
   display: flex;
-  width: 100%;
-  padding: 20% 150px 0px 150px;
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
+.header-wrapper {
+  background: #f4f2fb;
 }

@@ -1,0 +1,36 @@
+.card-jobtype {
+  padding: 2rem;
+  width: 100%;
+  flex-direction: row;
+  border-radius: 25px;
+}
+
+.card-jobtype__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 2rem;
+}
+
+.card-jobtype__icon img {
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 15%;
+  max-height: 15%;
+}
+
+.card-jobtype__title {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-jobtype__description {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
