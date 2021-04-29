@@ -2,32 +2,49 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Route,
-  Redirect,
   Switch,
 } from "react-router-dom";
 
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import Users from "./UsersLanding/pages/users";
-import Company from "./CompanyLanding/pages/company";
+import CompanyLP from "./CompanyLanding/pages/company";
 
 const App = () => {
-  let routes;
 
-  routes = (
-    <Switch>
-      <Route path="/" exact>
-        <Users />
-      </Route>
-      <Router path="/company">
-        <Company />
-      </Router>
-    </Switch>
+  let userRoutes;
+  let companyRoutes;
+
+  userRoutes = (
+    <div>
+      <MainNavigation navLinkClass="dark" />
+      <Switch>
+        <Route path="/" exact>
+          <Users />
+        </Route>
+        <Router path="/company">
+          <CompanyLP />
+        </Router>
+      </Switch>
+    </div>
+  );
+
+  companyRoutes = (
+    <div>
+      <MainNavigation />
+      <Switch>
+        <Route path="/" exact>
+          <Users />
+        </Route>
+        <Router path="/company">
+          <CompanyLP />
+        </Router>
+      </Switch>
+    </div>
   );
 
   return (
     <Router>
-      <MainNavigation />
-      <main>{routes}</main>
+      <main>{userRoutes}</main>
     </Router>
   );
 };
