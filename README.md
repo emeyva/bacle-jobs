@@ -41,19 +41,20 @@ cd ./frontend/
 npm start
 ```
 
-### POSTGRESQL ON HEROKU
+### PostgreSQL on Heroku
 
-## DEPLOY POSTGRESQL DB TO HEROKU
-
+Deploy PostgreSQL on Heroku
+```
 heroku pg:push bacle_db postgresql-concave-18248 --app postgresql-deploy
+```
 
-## RESET POSTGRESQL DB ON HEROKU
-
+Reset PostgreSQL DB on Heroku
+```
 heroku pg:reset --app postgresql-deploy --confirm postgresql-deploy
+```
+### Deploy API on Heroku
 
-### DEPLOY API
-
-## CHANGES NEEDED FOR PRODUCTION
+Changes needed for production
 
 ```
 backend/package.json:
@@ -70,18 +71,18 @@ backend/db-connect/postgresDB.js:
   */
 ```
 
-## START PROJECT ON HEROKU
-
+Start project on Heroku
+```
 cd my-project/
 git init
 heroku git:remote -a postgresql-deploy
-
-## COMMIT CHANGES TO HEROKU
-
+```
+Commit changed to Heroku
+```
 git add .
 git commit -am "second deploy"
 git push heroku master
-
+```
 ### Packages
 
 Installing all external packages
