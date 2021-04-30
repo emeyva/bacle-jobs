@@ -3,6 +3,7 @@
 [Bacle jobs](https://bacle.pt/) aims to stop physical CV delivering, restructuring the way We look at applying to unqualified jobs
 
 ## Software used
+
 Front-end - React with Typescript
 Backend - Node.js + Express
 DB - PostgreSQL
@@ -17,7 +18,7 @@ git clone https://github.com/baclejobs/bacle-jobs.git
 
 ### Installing
 
-Start by installing all the packages 📦 
+Start by installing all the packages 📦
 Don't forget to add external packages, find them below.
 
 ```
@@ -27,26 +28,72 @@ npm install react-scripts
 Then just start the web app
 
 Firstly, start the API:
+
 ```
 cd ./backend/
 npm start
 ```
 
 Then, start the Website:
+
 ```
 cd ./frontend/
 npm start
 ```
+
+### POSTGRESQL ON HEROKU
+
+## DEPLOY POSTGRESQL DB TO HEROKU
+
+heroku pg:push bacle_db postgresql-concave-18248 --app postgresql-deploy
+
+## RESET POSTGRESQL DB ON HEROKU
+
+heroku pg:reset --app postgresql-deploy --confirm postgresql-deploy
+
+### DEPLOY API
+
+## CHANGES NEEDED FOR PRODUCTION
+
+```
+backend/package.json:
+"start": "node app.js"
+```
+
+```
+backend/db-connect/postgresDB.js:
+/* Change for production
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+  */
+```
+
+## START PROJECT ON HEROKU
+
+cd my-project/
+git init
+heroku git:remote -a postgresql-deploy
+
+## COMMIT CHANGES TO HEROKU
+
+git add .
+git commit -am "second deploy"
+git push heroku master
 
 ### Packages
 
 Installing all external packages
 
 Frontend
+
 ```
 ├── ...
 ```
+
 Backend
+
 ```
 ├── "axios": "^0.21.1",
 ├── "bcryptjs": "^2.4.3",
@@ -65,19 +112,19 @@ The project is now live on (http://localhost:3000)
 
 ## Built With MERN
 
-* [PostgreSQL](https://www.postgresql.org/)
-* [Express](https://expressjs.com/)
-* [React](https://reactjs.org/)
-* [Node.js](https://nodejs.org/)
-
+- [PostgreSQL](https://www.postgresql.org/)
+- [Express](https://expressjs.com/)
+- [React](https://reactjs.org/)
+- [Node.js](https://nodejs.org/)
 
 ## DB Schema
-* [DrawSQL](https://drawsql.app/eurico-pinto/diagrams/bacle-jobs)
+
+- [DrawSQL](https://drawsql.app/eurico-pinto/diagrams/bacle-jobs)
 
 ## Hosting
 
-* [API](https://bacle-jobs.herokuapp.com/api) - The API is deployed on (http://postgresql-deploy.herokuapp.com/api)
-* [Website]() - - The web-app is not deployed yet
+- [API](https://bacle-jobs.herokuapp.com/api) - The API is deployed on (http://postgresql-deploy.herokuapp.com/api)
+- [Website]() - - The web-app is not deployed yet
 
 ## Contributing
 
@@ -85,7 +132,7 @@ Open to pull requests!
 
 ## Authors
 
-* **Francisco Soares** - *CEO*
-* **António Cordeiro** - *Front-end Engineer*
-* **Duarte Costa** - *DB Admin*
-* **Eurico Pinto** - *Back-end Engineer*
+- **Francisco Soares** - _CEO_
+- **António Cordeiro** - _Front-end Engineer_
+- **Duarte Costa** - _DB Admin_
+- **Eurico Pinto** - _Back-end Engineer_
