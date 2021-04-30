@@ -2,20 +2,20 @@ const { validationResult, query } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const HttpError = require("../models/http-error");
-const pool = require('../models/postgresDB').pool
+const HttpError = require("../utils/http-error");
+const pool = require("../db-connect/postgresDB").pool;
 const getCoordsForAddress = require("../utils/location");
 
 const getNewsletterEmails = async (req, res, next) => {
-  await pool.query('SELECT * FROM newsletter', (error, results) => {
+  await pool.query("SELECT * FROM newsletter", (error, results) => {
     if (error) {
       const error = new HttpError(
         "List all usersaccount failed, please try again later.",
         500
       );
     }
-    res.status(200).json({newsletter: results.rows})
-  })
+    res.status(200).json({ newsletter: results.rows });
+  });
 };
 
 const applyNewsletter = async (req, res, next) => {
@@ -26,16 +26,16 @@ const applyNewsletter = async (req, res, next) => {
     );
   }
   //const {phone,birthDate,aboutMe,experience,status,nJobs,nApplications,pendingJobs} = "null";
-  const {
-    email,
-    city
-  } = req.body;
+  const { email, city } = req.body;
 
   const timestamp = new Date().toISOString();
   let existingUser;
-  
+
   try {
-    existingUser = await pool.query('SELECT email FROM newsletter WHERE email LIKE $1',[email]);
+    existingUser = await pool.query(
+      "SELECT email FROM newsletter WHERE email LIKE $1",
+      [email]
+    );
   } catch (err) {
     const error = new HttpError(
       "Signing up to newsletter failed, please try again later.",
@@ -55,18 +55,21 @@ const applyNewsletter = async (req, res, next) => {
   let createdUser;
 
   try {
-    createdUser = await pool.query('INSERT INTO newsletter (email, city, timestamp) VALUES($1, $2, $3) RETURNING id',
-    [email, city, timestamp]);
+    createdUser = await pool.query(
+      "INSERT INTO newsletter (email, city, timestamp) VALUES($1, $2, $3) RETURNING id",
+      [email, city, timestamp]
+    );
   } catch (err) {
     console.log(err);
-    const error = new HttpError("Error enrolling your email on our newsletter", 500);
+    const error = new HttpError(
+      "Error enrolling your email on our newsletter",
+      500
+    );
     return next(error);
   }
 
-  res.json({statusMessage: "Enrolled successfully!"});
-
+  res.json({ statusMessage: "Enrolled successfully!" });
 };
-
 
 exports.getNewsletterEmails = getNewsletterEmails;
 exports.applyNewsletter = applyNewsletter;

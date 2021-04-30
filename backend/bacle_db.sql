@@ -2,7 +2,6 @@
 -- Please log an issue at https://redmine.postgresql.org/projects/pgadmin4/issues/new if you find any bugs, including reproduction steps.
 BEGIN;
 
-
 CREATE TABLE public.categories
 (
     id Serial NOT NULL,
@@ -49,7 +48,8 @@ CREATE TABLE public.companies
     address character varying(100),
     city character varying(50),
     country character varying(50),
-    "timestamp" date,
+    changed_date timestamp with time zone,
+    created_date timestamp with time zone,
     email character varying(50),
     password character varying(150),
     image character varying(150),
@@ -63,7 +63,9 @@ CREATE TABLE public.extra_job_applications
     user_id integer NOT NULL,
     extra_shift_id integer NOT NULL,
     status character varying(255) NOT NULL,
-    "timestamp" date
+    changed_date timestamp with time zone,
+    created_date timestamp with time zone,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE public.extra_jobs
@@ -153,5 +155,29 @@ ALTER TABLE public.users_status
     ADD FOREIGN KEY (user_id)
     REFERENCES public.usersaccount (user_id)
     NOT VALID;
+
+ALTER TABLE usersexperience
+   ADD  CONSTRAINT usersexperience_id_fkey
+   FOREIGN KEY (user_id) REFERENCES usersaccount (user_id) ON DELETE CASCADE;
+
+ALTER TABLE users_level
+   ADD  CONSTRAINT users_level_id_fkey
+   FOREIGN KEY (user_id) REFERENCES usersaccount (user_id) ON DELETE CASCADE;
+
+ALTER TABLE users_status
+   ADD  CONSTRAINT users_status_id_fkey
+   FOREIGN KEY (user_id) REFERENCES usersaccount (user_id) ON DELETE CASCADE;
+
+ALTER TABLE extra_job_applications
+   ADD  CONSTRAINT extra_job_applications_extra_shift_id_fkey
+   FOREIGN KEY (extra_shift_id) REFERENCES shifts (id) ON DELETE CASCADE;
+
+ALTER TABLE public.extra_jobs
+    ADD CONSTRAINT extra_jobs_company_id_fkey
+    FOREIGN KEY (company_id) REFERENCES companies (company_id) ON DELETE CASCADE;
+
+ALTER TABLE public.shifts
+    ADD CONSTRAINT shifts_extra_job_id_fkey
+    FOREIGN KEY (extra_job_id) REFERENCES public.extra_jobs (id) ON DELETE CASCADE;
 
 END;

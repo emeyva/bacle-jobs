@@ -7,7 +7,6 @@ const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
-
 router.get("/:uid", usersControllers.getUserById);
 router.get("/experience/:uid", usersControllers.getExperienceByUserId);
 router.get("/", usersControllers.getUsers);
@@ -27,10 +26,7 @@ router.post(
 
 router.post(
   "/login",
-  [
-    check("email").isEmail(),
-    check("password").isLength({ min: 8 })
-  ],
+  [check("email").isEmail(), check("password").isLength({ min: 8 })],
   usersControllers.login
 );
 
@@ -41,14 +37,8 @@ router.patch(
   [
     check("phone").isInt().isLength({ min: 9, max: 9 }).optional(),
     check("birthDate").not().isEmpty().optional(),
-    check("aboutMe:").not().isEmpty().optional(),
-    check("experience").not().isEmpty().optional(),
+    check("about_me").not().isEmpty().optional(),
     check("address").not().isEmpty().optional(),
-    check("location").not().isEmpty().optional(),
-    check("status").not().isEmpty().optional(),
-    check("nJobs").not().isEmpty().isInt().optional(),
-    check("nApplications").not().isEmpty().isInt().optional(),
-    check("pendingJobs").isArray().optional(),
     check("image").not().isEmpty().optional(),
   ],
   usersControllers.updateUser

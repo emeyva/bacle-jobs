@@ -1,4 +1,4 @@
-const Pool = require('pg').Pool
+const Pool = require("pg").Pool;
 const pool = new Pool({
   connectionString: process.env.DATABASE_LOCAL_URL,
   /* Change for production
@@ -7,8 +7,8 @@ const pool = new Pool({
     rejectUnauthorized: false
   }
   */
-})
+});
 
 module.exports = {
-    pool
-}
+  pool,
+};
