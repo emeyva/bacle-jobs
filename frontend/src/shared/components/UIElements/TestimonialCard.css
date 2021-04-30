@@ -1,0 +1,44 @@
+.testimonial__card {
+    width: 50%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.testimonial__card__icon {
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.testimonial__card__icon img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.testimonial__card__text {
+    width: 55%;
+    padding: 1.5rem 0 0.5rem 0;
+    text-align: center;
+    color: grey;
+}
+
+.testimonial__card__name {
+    width: 60%;
+    padding: 0.5rem 0;
+    text-align: center;
+}
+
+.testimonial__card__logo {
+    height: auto;
+    width: 6rem; 
+}
+
+.testimonial__card__logo img {
+    height: auto;
+    width: 100%; 
+}
