@@ -7,10 +7,10 @@ const pool = require("../db-connect/postgresDB").pool;
 const getCoordsForAddress = require("../utils/location");
 
 const getUsers = async (req, res, next) => {
-  await pool.query("SELECT * FROM usersaccount", (error, results) => {
+  await pool.query("SELECT * FROM users_account", (error, results) => {
     if (error) {
       const error = new HttpError(
-        "List all usersaccount failed, please try again later.",
+        "List all users_account failed, please try again later.",
         500
       );
     }
@@ -36,7 +36,7 @@ const signup = async (req, res, next) => {
 
   try {
     existingUser = await pool.query(
-      "SELECT email FROM usersaccount WHERE email LIKE $1",
+      "SELECT email FROM users_account WHERE email LIKE $1",
       [email]
     );
   } catch (err) {
@@ -71,7 +71,7 @@ const signup = async (req, res, next) => {
     try {
       await client.query("BEGIN");
       const insertUserQuery =
-        "INSERT INTO usersaccount (name, email, password, created_date) VALUES($1, $2, $3, $4) RETURNING user_id";
+        "INSERT INTO users_account (name, email, password, created_date) VALUES($1, $2, $3, $4) RETURNING user_id";
       const userObject = await client.query(insertUserQuery, [
         name,
         email,
@@ -142,7 +142,7 @@ const getUserById = async (req, res, next) => {
   let existingUser;
   try {
     existingUser = await pool.query(
-      "SELECT * FROM usersaccount WHERE user_id = $1",
+      "SELECT * FROM users_account WHERE user_id = $1",
       [UserId]
     );
   } catch (err) {
@@ -172,7 +172,7 @@ const getExperienceByUserId = async (req, res, next) => {
   let user;
   try {
     user = await pool.query(
-      "SELECT * FROM usersexperience WHERE user_id = $1",
+      "SELECT * FROM users_experience WHERE user_id = $1",
       [UserId]
     );
   } catch (err) {
@@ -202,7 +202,7 @@ const createExperienceByUserId = async (req, res, next) => {
   console.log("Experience: " + experience);
 
   try {
-    await pool.query("DELETE FROM usersexperience WHERE user_id = $1;", [
+    await pool.query("DELETE FROM users_experience WHERE user_id = $1;", [
       UserId,
     ]);
   } catch (err) {
@@ -218,7 +218,7 @@ const createExperienceByUserId = async (req, res, next) => {
       console.log("Value: " + value.user_experience_description);
       await pool.query(
         "INSERT INTO\
-      usersexperience(user_id, user_experience_description, job_category) \
+      users_experience(user_id, user_experience_description, job_category) \
       VALUES ($1, $2, $3)",
         [UserId, value.user_experience_description, value.job_category]
       );
@@ -233,7 +233,7 @@ const login = async (req, res, next) => {
   console.log(email);
   try {
     existingUser = await pool.query(
-      "SELECT * FROM usersaccount WHERE email LIKE $1",
+      "SELECT * FROM users_account WHERE email LIKE $1",
       [email]
     );
     existingUser = existingUser.rows[0];
@@ -305,6 +305,14 @@ const updateUser = async (req, res, next) => {
     );
   }
 
+  const UserIdFromToken = req.userData.userId;
+  const userId = req.params.uid;
+  if (userId != UserIdFromToken) {
+    return next(
+      new HttpError("Invalid credentials, please check your credentials", 422)
+    );
+  }
+
   let {
     name,
     phone_number,
@@ -314,8 +322,6 @@ const updateUser = async (req, res, next) => {
     driving_license,
     birth_date,
   } = req.body;
-
-  const userId = req.params.uid;
 
   let country;
   let countryCode;
@@ -331,7 +337,7 @@ const updateUser = async (req, res, next) => {
 
   try {
     updatedUser = await pool.query(
-      "SELECT * FROM usersaccount WHERE user_id = $1",
+      "SELECT * FROM users_account WHERE user_id = $1",
       [userId]
     );
   } catch (err) {
@@ -389,7 +395,7 @@ const updateUser = async (req, res, next) => {
 
   try {
     updatedUser = await pool.query(
-      "UPDATE usersaccount \
+      "UPDATE users_account \
     SET name = $1, phone_number = $2, address = $3, coordinate_long = $4, coordinate_lat = $5,\
     city = $6, locality = $7, country = $8, country_code = $9, about_me = $10, image = $11, \
     driving_license = $12, birth_date = $13, changed_date = $14\
@@ -436,7 +442,7 @@ const deleteUser = async (req, res, next) => {
   let existingUser;
   try {
     existingUser = await pool.query(
-      "SELECT * FROM usersaccount WHERE user_id = $1",
+      "SELECT * FROM users_account WHERE user_id = $1",
       [userId]
     );
   } catch (err) {
@@ -460,7 +466,7 @@ const deleteUser = async (req, res, next) => {
 
   try {
     deletedUser = await pool.query(
-      "DELETE FROM usersaccount WHERE user_id = $1",
+      "DELETE FROM users_account WHERE user_id = $1",
       [userId]
     );
   } catch (err) {

@@ -12,7 +12,7 @@ const getUserLevelByUserId = async (req, res, next) => {
   let existingUser;
   try {
     existingUser = await pool.query(
-      "SELECT * FROM usersaccount WHERE user_id = $1",
+      "SELECT * FROM users_account WHERE user_id = $1",
       [UserId]
     );
   } catch (err) {

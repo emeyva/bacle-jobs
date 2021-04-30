@@ -7,15 +7,22 @@ const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
-router.get("/", newsletterControllers.getNewsletterEmails);
+router.get("/users", newsletterControllers.getUserNewsletter);
+router.get("/companies", newsletterControllers.getCompanyNewsletter);
 
 // Requests têm de ter Token
 //router.use(checkAuth);
 
 router.post(
-  "/apply",
+  "/users",
   [check("email").isEmail(), check("city").not().isEmpty()],
-  newsletterControllers.applyNewsletter
+  newsletterControllers.createUserNewsletter
+);
+
+router.post(
+  "/companies",
+  [check("email").isEmail(), check("city").not().isEmpty()],
+  newsletterControllers.createCompanyNewsletter
 );
 
 module.exports = router;
