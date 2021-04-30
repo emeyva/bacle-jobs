@@ -3,10 +3,13 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import FormUser from "../components/FormUser";
+import FormUser from "../components/Form/FormUser";
 import Button from "../../shared/FormElements/Button";
 import Numbers from "../components/Numbers";
 import JobType from "../components/JobType";
+import StepsSection from "../components/steps-section/StepsSection";
+import Cities from "../../UsersLanding/components/Cities/Cities";
+
 import "./Users.css";
 
 const Users = () => {
@@ -28,6 +31,8 @@ const Users = () => {
       </section>
       <Numbers />
       <JobType />
+      <StepsSection />
+      <Cities />
     </React.Fragment>
   );
 };

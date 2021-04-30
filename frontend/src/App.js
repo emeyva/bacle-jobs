@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import Users from "./UsersLanding/pages/Users";
-import CompanyLP from "./CompanyLanding/pages/company";
+import CompanyLP from "./CompanyLanding/pages/Company";
 
 const App = () => {
   let userRoutes;

@@ -1,0 +1,46 @@
+.card-cities {
+  width: 100%;
+  height: auto;
+  margin: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 15px;
+}
+
+.card-cities__outline {
+  width: 100%;
+  height: 100%;
+}
+
+.card-cities__img {
+  width: 100%;
+  height: 12rem;
+}
+.card-cities__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
+.card-cities__footer__border {
+  border: 1px solid rgb(214, 214, 214);
+  border-radius: 0px 0px 12px 12px;
+}
+
+.card-cities__title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.card-cities__description {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 1rem;
+  font-family: "Nunito";
+}
