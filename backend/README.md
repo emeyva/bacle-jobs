@@ -1,4 +1,4 @@
-# Bacle API #
+# Bacle API
 
 Check Drive: <a href="https://docs.google.com/document/d/14iwSVKrvqBj99QG4FM-VYNcMrtp3emHAqdY7uYwxnaA/edit#" target="_blank">API Document</a>
 

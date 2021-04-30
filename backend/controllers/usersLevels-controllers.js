@@ -2,8 +2,8 @@ const { validationResult, query } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const HttpError = require("../models/http-error");
-const pool = require('../models/postgresDB').pool
+const HttpError = require("../utils/http-error");
+const pool = require("../db-connect/postgresDB").pool;
 const getCoordsForAddress = require("../utils/location");
 
 const getUserLevelByUserId = async (req, res, next) => {
@@ -11,7 +11,10 @@ const getUserLevelByUserId = async (req, res, next) => {
 
   let existingUser;
   try {
-    existingUser = await pool.query('SELECT * FROM usersaccount WHERE user_id = $1', [UserId]);
+    existingUser = await pool.query(
+      "SELECT * FROM usersaccount WHERE user_id = $1",
+      [UserId]
+    );
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not find the user. ",
@@ -30,7 +33,10 @@ const getUserLevelByUserId = async (req, res, next) => {
 
   let existingUserLevel;
   try {
-    existingUserLevel = await pool.query('SELECT * FROM users_level WHERE user_id = $1', [UserId]);
+    existingUserLevel = await pool.query(
+      "SELECT * FROM users_level WHERE user_id = $1",
+      [UserId]
+    );
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not find the user level. ",
@@ -39,7 +45,7 @@ const getUserLevelByUserId = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({userLevel: existingUserLevel.rows});
+  res.json({ userLevel: existingUserLevel.rows });
 };
 
 exports.getUserLevelByUserId = getUserLevelByUserId;
