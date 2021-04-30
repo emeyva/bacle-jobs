@@ -19,7 +19,7 @@ const applyShift = async (req, res, next) => {
 
   try {
     existingUser = await pool.query(
-      "SELECT * FROM usersaccount WHERE user_id = $1",
+      "SELECT * FROM users_account WHERE user_id = $1",
       [user_id]
     );
   } catch (err) {
@@ -88,7 +88,7 @@ const cancelApplyJob = async (req, res, next) => {
 
   try {
     existingUser = await pool.query(
-      "SELECT * FROM usersaccount WHERE user_id = $1",
+      "SELECT * FROM users_account WHERE user_id = $1",
       [user_id]
     );
   } catch (err) {

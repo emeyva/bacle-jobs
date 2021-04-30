@@ -7,13 +7,7 @@ const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
-router.get("/:uid", usersControllers.getUserById);
-router.get("/experience/:uid", usersControllers.getExperienceByUserId);
-router.get("/", usersControllers.getUsers);
-
-// Requests têm de ter Token
-//router.use(checkAuth);
-
+// Requests sem ter Token
 router.post(
   "/signup",
   [
@@ -29,6 +23,13 @@ router.post(
   [check("email").isEmail(), check("password").isLength({ min: 8 })],
   usersControllers.login
 );
+
+router.get("/:uid", usersControllers.getUserById);
+router.get("/experience/:uid", usersControllers.getExperienceByUserId);
+router.get("/", usersControllers.getUsers);
+
+// Requests têm de ter Token
+router.use(checkAuth);
 
 router.post("/experience/:uid", usersControllers.createExperienceByUserId);
 

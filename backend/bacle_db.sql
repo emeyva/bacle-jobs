@@ -30,14 +30,23 @@ CREATE TABLE public.users_status
     PRIMARY KEY (id)
 );
 
-CREATE TABLE public.newsletter
+CREATE TABLE public.users_newsletter
 (
     id integer NOT NULL DEFAULT nextval('newsletter_id_seq'::regclass),
     email character varying(50) COLLATE pg_catalog."default",
     "timestamp" timestamp with time zone,
-    city character varying(50),
+    city character varying(50) COLLATE pg_catalog."default",
     CONSTRAINT newsletter_pkey PRIMARY KEY (id),
     CONSTRAINT newsletter_email_key UNIQUE (email)
+)
+
+CREATE TABLE public.companies_newsletter
+(
+    id integer NOT NULL DEFAULT nextval('company_newsletter_id_seq'::regclass),
+    email character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    "timestamp" time with time zone NOT NULL,
+    city character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT company_newsletter_pkey PRIMARY KEY (id)
 )
 
 CREATE TABLE public.companies
@@ -97,7 +106,7 @@ CREATE TABLE public.shifts
     "timestamp" date
 );
 
-CREATE TABLE public.usersaccount
+CREATE TABLE public.users_account
 (
     user_id Serial NOT NULL,
     name character varying(50),
@@ -119,7 +128,7 @@ CREATE TABLE public.usersaccount
     UNIQUE (email)
 );
 
-CREATE TABLE public.usersexperience
+CREATE TABLE public.users_experience
 (
     id Serial NOT NULL,
     user_id integer,
@@ -131,7 +140,7 @@ CREATE TABLE public.usersexperience
 
 ALTER TABLE public.extra_job_applications
     ADD FOREIGN KEY (user_id)
-    REFERENCES public.usersaccount (user_id)
+    REFERENCES public.users_account (user_id)
     NOT VALID;
 
 
@@ -141,32 +150,32 @@ ALTER TABLE public.shifts
     NOT VALID;
 
 
-ALTER TABLE public.usersexperience
+ALTER TABLE public.users_experience
     ADD FOREIGN KEY (user_id)
-    REFERENCES public.usersaccount (user_id)
+    REFERENCES public.users_account (user_id)
     NOT VALID;
 
 ALTER TABLE public.users_level
     ADD FOREIGN KEY (user_id)
-    REFERENCES public.usersaccount (user_id)
+    REFERENCES public.users_account (user_id)
     NOT VALID;
 
 ALTER TABLE public.users_status
     ADD FOREIGN KEY (user_id)
-    REFERENCES public.usersaccount (user_id)
+    REFERENCES public.users_account (user_id)
     NOT VALID;
 
-ALTER TABLE usersexperience
-   ADD  CONSTRAINT usersexperience_id_fkey
-   FOREIGN KEY (user_id) REFERENCES usersaccount (user_id) ON DELETE CASCADE;
+ALTER TABLE users_experience
+   ADD  CONSTRAINT users_experience_id_fkey
+   FOREIGN KEY (user_id) REFERENCES users_account (user_id) ON DELETE CASCADE;
 
 ALTER TABLE users_level
    ADD  CONSTRAINT users_level_id_fkey
-   FOREIGN KEY (user_id) REFERENCES usersaccount (user_id) ON DELETE CASCADE;
+   FOREIGN KEY (user_id) REFERENCES users_account (user_id) ON DELETE CASCADE;
 
 ALTER TABLE users_status
    ADD  CONSTRAINT users_status_id_fkey
-   FOREIGN KEY (user_id) REFERENCES usersaccount (user_id) ON DELETE CASCADE;
+   FOREIGN KEY (user_id) REFERENCES users_account (user_id) ON DELETE CASCADE;
 
 ALTER TABLE extra_job_applications
    ADD  CONSTRAINT extra_job_applications_extra_shift_id_fkey
