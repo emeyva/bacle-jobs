@@ -1,0 +1,45 @@
+.section-cities {
+  background-color: #f4f2fb;
+
+  padding-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.card-cities__wrapper {
+  padding-top: 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+}
+
+.cities-text {
+  width: 50%;
+  text-align: center;
+  padding-left: 12rem;
+  padding-right: 12rem;
+  font-family: "Nunito";
+}
+
+.cities-description {
+  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Nunito";
+  width: 40%;
+}
+.cities-final__div {
+  padding-top: 4rem;
+}
+
+.cities-final__text {
+  text-decoration: underline;
+  color: black;
+}

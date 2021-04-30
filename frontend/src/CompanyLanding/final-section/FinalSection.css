@@ -1,0 +1,36 @@
+.final__section {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+    padding: 3rem 0;
+    font-family: "Nunito", sans-serif;
+}
+
+.final__section__box {
+    width: 60%;
+    height: 32rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1d1637;
+    border-radius: 2rem;
+    color: white;
+    position: relative;
+}
+
+.final__section__box p {
+    color: rgb(179, 179, 179);
+    margin-bottom: 3rem;
+}
+
+.bacle-pin {
+    position: absolute;
+    top: 92%;
+    background-color: honeydew;
+    border-radius: 15px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
