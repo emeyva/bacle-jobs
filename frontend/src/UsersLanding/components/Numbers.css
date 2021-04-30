@@ -1,0 +1,19 @@
+.container-numbers {
+  width: 100%;
+  padding: 150px 150px 0px 150px;
+  font-family: "Nunito";
+}
+
+.div-numbers {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-numbers {
+  display: flex;
+  text-align: center;
+  padding: 50px 100px 0px 100px;
+  margin-bottom: 0px;
+}
