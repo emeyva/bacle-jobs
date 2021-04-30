@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const HttpError = require("../models/http-error");
+const HttpError = require("./http-error");
 
 const API_KEY = process.env.GOOGLE_API_KEY;
 //AIzaSyAa8W2k5rBRUgzmpFlox_ukoDEUHZwIS_8
@@ -24,6 +24,9 @@ async function getCoordsForAddress(address) {
 
   const coordinates = data.results[0].geometry.location;
   let city;
+  let locality;
+  let country;
+  let countryCode;
   for (
     let index = 0;
     index < data.results[0].address_components.length;
@@ -34,10 +37,17 @@ async function getCoordsForAddress(address) {
     if ("administrative_area_level_1" === element.types[0]) {
       city = element.long_name;
     }
+    if ("locality" === element.types[0]) {
+      locality = element.long_name;
+    }
+    if ("country" === element.types[0]) {
+      country = element.long_name;
+      countryCode = element.short_name;
+    }
   }
   console.log(city);
 
-  return [coordinates, city];
+  return [coordinates, city, locality, country, countryCode];
 }
 
 module.exports = getCoordsForAddress;

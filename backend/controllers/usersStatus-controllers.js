@@ -2,8 +2,8 @@ const { validationResult, query } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const HttpError = require("../models/http-error");
-const pool = require('../models/postgresDB').pool
+const HttpError = require("../utils/http-error");
+const pool = require("../db-connect/postgresDB").pool;
 const getCoordsForAddress = require("../utils/location");
 
 const getUserStatusByUserId = async (req, res, next) => {
@@ -11,7 +11,10 @@ const getUserStatusByUserId = async (req, res, next) => {
 
   let existingUser;
   try {
-    existingUser = await pool.query('SELECT * FROM usersaccount WHERE user_id = $1', [UserId]);
+    existingUser = await pool.query(
+      "SELECT * FROM usersaccount WHERE user_id = $1",
+      [UserId]
+    );
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not find the user. ",
@@ -30,7 +33,10 @@ const getUserStatusByUserId = async (req, res, next) => {
 
   let existingUserStatus;
   try {
-    existingUserStatus = await pool.query('SELECT * FROM users_status WHERE user_id = $1', [UserId]);
+    existingUserStatus = await pool.query(
+      "SELECT * FROM users_status WHERE user_id = $1",
+      [UserId]
+    );
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not find the user status. ",
@@ -39,7 +45,7 @@ const getUserStatusByUserId = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({userStatus: existingUserStatus.rows});
+  res.json({ userStatus: existingUserStatus.rows });
 };
 
 exports.getUserStatusByUserId = getUserStatusByUserId;

@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import Button from "../../shared/FormElements/Button";
+import LandingButton from "../../../shared/components/UIElements/LandingButton";
 import "./FormUser.css";
 
 const FormUser = () => {
@@ -44,7 +44,7 @@ const FormUser = () => {
             </div>
           </Col>
           <Col>
-            <Button>Procurar</Button>
+            <LandingButton>Procurar</LandingButton>
           </Col>
         </Row>
       </Container>

@@ -14,12 +14,8 @@ router.get("/", newsletterControllers.getNewsletterEmails);
 
 router.post(
   "/apply",
-  [
-    check("email").isEmail(),
-    check("city").not().isEmpty()
-  ],
+  [check("email").isEmail(), check("city").not().isEmpty()],
   newsletterControllers.applyNewsletter
 );
-
 
 module.exports = router;
