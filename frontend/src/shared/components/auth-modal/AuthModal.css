@@ -1,0 +1,32 @@
+.curtain {
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  margin: 0 auto;
+  overflow: hidden;
+  z-index: 100;
+  position: fixed;
+  background-color: purple;
+}
+
+.curtain__panel {
+  width: 50%;
+  height: 100vh;
+  z-index: 101;
+}
+
+.curtain__panel-lef {
+  width: 50%;
+  height: 100vh;
+  background-color: white;
+  z-index: 101;
+}
+
+.curtain__panel-right {
+  width: 50%;
+  height: 100vh;
+  background-color: purple;
+  z-index: 101;
+}

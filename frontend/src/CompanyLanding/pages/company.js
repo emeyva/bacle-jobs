@@ -11,15 +11,17 @@ import "./Company.css";
 
 const CompanyLP = () => {
   return (
-    <div className="company-landing-page">
-      <MainSection />
-      <WhyBacleSection />
-      <BacleToolsSection />
-      <StepsSection />
-      <TestimonialsSection />
-      <FinalSection />
-      <Footer />
-    </div>
+    <React.Fragment>
+      <div className="company-landing-page">
+        <MainSection />
+        <WhyBacleSection />
+        <BacleToolsSection />
+        <StepsSection />
+        <TestimonialsSection />
+        <FinalSection />
+        <Footer />
+      </div>
+    </React.Fragment>
   );
 };
 

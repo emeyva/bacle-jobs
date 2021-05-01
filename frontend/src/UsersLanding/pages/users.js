@@ -8,7 +8,7 @@ import Button from "../../shared/FormElements/Button";
 import Numbers from "../components/Numbers";
 import JobType from "../components/JobType";
 import StepsSection from "../components/steps-section/StepsSection";
-import Cities from "../../UsersLanding/components/Cities/Cities";
+import Cities from "../components/Cities/Cities";
 
 import "./Users.css";
 
